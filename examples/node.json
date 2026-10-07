@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "profile": "node",
+  "project": "../../MyNodeProject",
+  "testing": {
+    "defaultMode": "basic",
+    "runner": "commands",
+    "timeoutMs": 180000,
+    "noMistakes": { "enabled": true, "timeoutMs": 900000 },
+    "modes": {
+      "basic": { "platforms": [], "commands": [] },
+      "full": { "platforms": [], "commands": [] }
+    }
+  }
+}

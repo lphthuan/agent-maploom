@@ -1,0 +1,29 @@
+node_modules/
+.cache/
+.agentkit/
+pilot/
+analysis/video-frames/
+*.log
+dist/
+lib/
+.vscode/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# Local research, pilot configuration and evidence stay outside the public repository.
+/analysis/
+/NoiDungVideo-SetupAIAgent.md
+/KeHoachTrienKhai-AgentToolkit.md
+/ThietKeBoTool-AgentTuDocDuAn.md
+/HoSoDuAnMau-GeneBonk.md
+/examples/GeneBonk.json
+/docs/CONTEXT_INDEX.md
+/docs/CURRENT_SCOPE.md
+/docs/CORE_SETUP_RESULT.md
+/docs/IMPLEMENTATION.md
+/docs/PHASE2_OPTIONS.md
+
+# AgentKit generated state/tools
+/.agentkit/

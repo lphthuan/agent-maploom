@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "profile": "unity",
+  "project": "../../MyUnityGame",
+  "unity": { "mcpUrl": "http://127.0.0.1:8080/mcp", "timeoutMs": 15000 },
+  "testing": {
+    "defaultMode": "basic",
+    "runner": "mcp",
+    "timeoutMs": 600000,
+    "noMistakes": { "enabled": true, "timeoutMs": 900000 },
+    "modes": {
+      "basic": { "platforms": ["EditMode"], "commands": [] },
+      "full": { "platforms": ["EditMode", "PlayMode"], "commands": [] }
+    }
+  }
+}

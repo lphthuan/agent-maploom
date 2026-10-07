@@ -1,0 +1,39 @@
+{
+  "name": "agent-maploom",
+  "version": "0.2.0",
+  "description": "Prepare projects with code maps, local context and verification for AI coding agents",
+  "license": "MIT",
+  "author": "Le Phan Hoa Thuan",
+  "repository": { "type": "git", "url": "git+https://github.com/lphthuan/agent-maploom.git" },
+  "homepage": "https://github.com/lphthuan/agent-maploom#readme",
+  "bugs": { "url": "https://github.com/lphthuan/agent-maploom/issues" },
+  "keywords": ["ai-agent", "unity", "project-setup", "code-map", "agents-md", "context", "mcp"],
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "packageManager": "pnpm@11.19.0",
+  "bin": { "agent-maploom": "bin/agent-maploom.mjs" },
+  "files": [
+    "bin", "lib", "src", "agent-maploom.ps1", "agentkit.ps1",
+    "README.vi.md", "CHANGELOG.md", "CONTRIBUTING.md", "THIRD_PARTY_NOTICES.md",
+    "examples/unity-mobile.json", "examples/node.json",
+    "docs/GETTING_STARTED.md", "docs/CONFIGURATION.md", "docs/TESTING.md",
+    "docs/ARCHITECTURE.md", "docs/DEVELOPMENT.md", "docs/RELEASING.md", "docs/Agent/PROJECT_RULES.md", "docs/releases"
+  ],
+  "scripts": {
+    "agentkit": "node src/cli.ts",
+    "agent-maploom": "node bin/agent-maploom.mjs",
+    "package": "node scripts/package-release.ts",
+    "smoke:package": "node scripts/smoke-package.ts",
+    "test": "node --test tests/*.test.ts",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@toon-format/toon": "4.1.1",
+    "typescript": "6.0.3",
+    "web-tree-sitter": "0.26.13",
+    "tree-sitter-wasm": "1.1.6"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1"
+  }
+}

@@ -1,0 +1,45 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag to package and publish, for example v0.2.0
+        required: true
+        type: string
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.tag }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24.19.0
+      - name: Check package version against requested tag
+        shell: pwsh
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          $toolkitVersion = (Get-Content -LiteralPath package.json -Raw | ConvertFrom-Json).version
+          if ($env:RELEASE_TAG -ne "v$toolkitVersion") { throw 'Tag and package version differ.' }
+      - run: npm install --global pnpm@11.19.0 --ignore-scripts --no-audit --no-fund
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm check
+      - run: pnpm test
+      - run: pnpm package
+      - run: pnpm smoke:package
+      - name: Create draft, upload checked assets, then publish
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          $toolkitVersion = (Get-Content -LiteralPath package.json -Raw | ConvertFrom-Json).version
+          $toolkitAssets = @(Get-ChildItem -LiteralPath dist -File | Select-Object -ExpandProperty FullName)
+          gh release create $env:RELEASE_TAG --verify-tag --draft --title "AgentMaploom $env:RELEASE_TAG" --notes-file "docs/releases/v$toolkitVersion.md" @toolkitAssets
+          if ($LASTEXITCODE -ne 0) { throw 'Draft/upload failed; release was not published.' }
+          gh release edit $env:RELEASE_TAG --draft=false
+          if ($LASTEXITCODE -ne 0) { throw 'Publishing failed; inspect the draft.' }
